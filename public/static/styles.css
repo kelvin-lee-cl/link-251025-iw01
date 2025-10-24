@@ -1,0 +1,253 @@
+/* Optional CSS to enhance the modal */
+.modal-body {
+    padding: 0;
+    position: relative;
+}
+
+.btn-close {
+    background-color: white;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+.btn-close:hover {
+    opacity: 1;
+}
+
+/* Responsive font sizes */
+@media (max-width: 1120px) {
+    .responsive-title {
+        font-size: 2.4rem;
+        /* Adjusted for medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .responsive-title {
+        font-size: 1.2rem;
+        /* Adjusted for small screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .responsive-title {
+        font-size: 1rem;
+        /* Further adjustment for extra small screens */
+    }
+}
+
+li.active {
+    font-weight: bold;
+}
+
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+}
+
+.fade-in.visible {
+    opacity: 1;
+}
+
+/* Mobile Navbar Styles */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        position: absolute;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background-color: #D87D3A !important;
+        padding: 1rem;
+        z-index: 1000;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 0 0 8px 8px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .navbar-collapse.collapsing {
+        transition: all 0.3s ease-in-out;
+    }
+
+    .navbar-nav {
+        margin: 0;
+        padding: 0;
+    }
+
+    .navbar-nav .nav-item {
+        margin: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-nav .nav-item:last-child {
+        border-bottom: none;
+    }
+
+    .navbar-nav .nav-link {
+        color: #FFFFFF !important;
+        padding: 0.75rem 1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: #724D00 !important;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+    }
+
+    .navbar-toggler,
+    .navbar-toggler.d-none,
+    .navbar-toggler.collapsed,
+    .navbar-toggler[style*="display: none"],
+    .navbar-toggler[style*="display:none"] {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative !important;
+        z-index: 1031 !important;
+        margin-right: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 0.25rem 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+    }
+
+    .navbar-toggler:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-toggler-icon,
+    .navbar-toggler-icon[style*="display: none"],
+    .navbar-toggler-icon[style*="display:none"] {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    /* Ensure the navbar brand images are properly sized on mobile */
+    .navbar-brand img {
+        max-height: 60px;
+        width: auto;
+    }
+
+    /* Style the logout button in mobile menu */
+    .navbar-nav .btn-secondary {
+        margin: 0.5rem 1rem;
+        width: calc(100% - 2rem);
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: #FFFFFF;
+    }
+
+    .navbar-nav .btn-secondary:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #FFFFFF;
+    }
+
+    /* Ensure proper spacing for user ID display */
+    #userIdDisplay {
+        font-size: 0.9rem;
+        margin-right: 0.5rem !important;
+    }
+}
+
+/* Ensure proper spacing for fixed navbar */
+body {
+    padding-top: 80px;
+}
+
+/* Additional mobile optimizations */
+@media (max-width: 576px) {
+    .navbar {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    .navbar-brand {
+        margin-right: 0.5rem;
+    }
+
+    .navbar-brand img {
+        max-height: 50px;
+    }
+
+    /* Ensure the navbar doesn't interfere with other elements */
+    .navbar-collapse {
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+    }
+
+    /* Better touch targets for mobile */
+    .navbar-nav .nav-link {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-toggler {
+        min-height: 44px;
+        min-width: 44px;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    /* Ensure proper spacing for navbar elements */
+    .navbar>.container,
+    .navbar>.container-fluid {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    /* Make sure the navbar-toggler is positioned correctly */
+    .navbar-toggler {
+        order: 3;
+        margin-left: auto;
+    }
+
+    /* Ensure navbar-brand doesn't take too much space */
+    .navbar-brand {
+        flex-shrink: 0;
+    }
+}
+
+/* Extra small screens (iPhone SE, etc.) */
+@media (max-width: 375px) {
+    .navbar {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+
+    .navbar-brand img {
+        max-height: 40px;
+    }
+
+    .navbar-toggler {
+        min-width: 40px;
+        min-height: 40px;
+        padding: 0.2rem 0.4rem;
+    }
+
+    #userIdDisplay {
+        font-size: 0.8rem;
+        margin-right: 0.25rem !important;
+    }
+}
+
+/* Ensure the navbar is always on top */
+.navbar {
+    z-index: 1030;
+}
+
+/* Fix for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+    .navbar-collapse {
+        -webkit-overflow-scrolling: touch;
+    }
+}

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Story Generator - AI Workshop</title>
+    <meta name="description" content="Generate creative stories using DeepSeek AI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #F5F7FA;
+            --text-color: #2C3E50;
+            --border-color: #E5E9F2;
+            --hover-color: #357ABD;
+        }
+
+        body {
+            color: var(--text-color);
+            background-color: #FFFFFF;
+            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .navbar {
+            background-color: #FFFFFF !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            height: 80px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-light .navbar-nav .nav-link {
+            color: #333333;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            border-radius: 6px;
+            margin: 0 0.25rem;
+        }
+
+        .navbar-light .navbar-nav .nav-link:hover {
+            color: #D87D3A;
+            background-color: rgba(216, 125, 58, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .navbar-light .navbar-nav .nav-link.active {
+            color: #D87D3A;
+            background-color: rgba(216, 125, 58, 0.15);
+            font-weight: 600;
+        }
+
+        .navbar-brand {
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            margin-top: 100px;
+            /* Account for fixed navbar */
+        }
+
+        .text-gen-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control,
+        .form-select {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .result-container {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .spinner-border {
+            color: var(--primary-color);
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .text-preview {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background: var(--hover-color);
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            transform: translateY(-1px);
+        }
+
+        .btn-success:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-5 fixed-top">
+        <div>
+            <a class="navbar-brand flu_logo" href="https://future-leaders-union.odoo.com/zh_TW" target="_blank">
+                <img class="mx-4" src="./images/FLU_logo2.png" width="100" class="d-inline-block align-top" alt="">
+            </a>
+            <a class="navbar-brand school_logo" href="https://mcsps.edu.hk/" target="_blank">
+                <img class="d-none" src="https://mcsps.edu.hk/wp-content/uploads/2024/09/BADGEHI.png" height="90"
+                    class="d-inline-block align-top" style="padding:5px;" alt="" target="_blank"></a>
+        </div>
+
+        <span id="userIdDisplay" class="text-black me-3 d-none">User: <span id="userId"></span></span>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="justify-content-end collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mx-2">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="classppt.html">Lessons</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../img-gen/img_gen.html">AI Art Studio</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="text-gen.html">Story Generator</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="teacherdashboard.html">Gallery</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="admin.html">Admin</a>
+                </li>
+                <button onclick="logout()" class="btn btn-secondary" style="display: none;"
+                    id="logoutBtn">Logout</button>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-gen-card">
+                    <h1 class="mb-4">
+                        <i class="fas fa-book-open text-primary me-2"></i>
+                        AI Story Generator
+                    </h1>
+                    <p class="text-muted mb-4">Create amazing stories using AI! Fill in the story elements below and let
+                        our AI craft a unique story for you.</p>
+
+                    <form id="textGenForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="who" class="form-label">👤 Who (Characters)</label>
+                                    <input type="text" class="form-control" id="who"
+                                        placeholder="e.g., A brave little girl named Emma, a wise old wizard, a talking cat"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="when" class="form-label">⏰ When (Time)</label>
+                                    <input type="text" class="form-control" id="when"
+                                        placeholder="e.g., In the year 2050, Once upon a time, During a stormy night"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="where" class="form-label">📍 Where (Place)</label>
+                                    <input type="text" class="form-control" id="where"
+                                        placeholder="e.g., A magical forest, A space station, A small village" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="what" class="form-label">🎭 What (Event/Problem)</label>
+                                    <input type="text" class="form-control" id="what"
+                                        placeholder="e.g., A mysterious door appears, A dragon needs help, A lost treasure"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="why" class="form-label">🤔 Why (Reason/Motivation)</label>
+                                    <input type="text" class="form-control" id="why"
+                                        placeholder="e.g., To save their family, To find the truth, To help a friend"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="how" class="form-label">🛠️ How (Solution/Method)</label>
+                                    <input type="text" class="form-control" id="how"
+                                        placeholder="e.g., Using magic, With teamwork, Through courage" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="style" class="form-label">📚 Story Style</label>
+                                    <select class="form-select" id="style">
+                                        <option value="adventure">Adventure</option>
+                                        <option value="fantasy">Fantasy</option>
+                                        <option value="mystery">Mystery</option>
+                                        <option value="comedy">Comedy</option>
+                                        <option value="drama">Drama</option>
+                                        <option value="sci-fi">Science Fiction</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="length" class="form-label">📏 Story Length</label>
+                                    <select class="form-select" id="length">
+                                        <option value="short">Short Story (1-2 pages)</option>
+                                        <option value="medium" selected>Medium Story (3-5 pages)</option>
+                                        <option value="long">Long Story (6+ pages)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary" id="generateBtn">
+                                <i class="fas fa-magic me-2"></i>Generate Story
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="clearBtn">
+                                <i class="fas fa-trash me-2"></i>Clear All
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Loading Spinner -->
+                    <div class="loading-spinner" id="loadingSpinner">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Generating...</span>
+                        </div>
+                        <p class="mt-2">Creating your story...</p>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div class="error-message" id="errorMessage"></div>
+
+                    <!-- Success Message -->
+                    <div class="success-message" id="successMessage"></div>
+
+                    <!-- Result Container -->
+                    <div class="result-container" id="resultContainer" style="display: none;">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0">Your Generated Story</h5>
+                            <div class="d-flex gap-2">
+                                <button class="copy-btn" id="copyBtn" title="Copy to clipboard">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button class="btn btn-success" id="saveToFirebaseBtn" title="Save to Firebase">
+                                    <i class="fas fa-save"></i> Save Story
+                                </button>
+                            </div>
+                        </div>
+                        <div class="text-preview" id="generatedText"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyADT4rh94tIthBV32YkFToUaX9preqWwE4",
+            authDomain: "link-aka-251025.firebaseapp.com",
+            projectId: "link-aka-251025",
+            storageBucket: "link-aka-251025.firebasestorage.app",
+            messagingSenderId: "431182649515",
+            appId: "1:431182649515:web:171eae8973d3c863607fee",
+            measurementId: "G-RMDK7NNMBQ"
+        };
+
+        // Initialize Firebase
+        let app, db;
+        try {
+            app = initializeApp(firebaseConfig);
+            console.log("Firebase initialized successfully");
+
+            // Initialize Firestore
+            try {
+                db = getFirestore(app);
+                console.log("Firestore initialized successfully");
+                window.fbDb = db; // Make db available globally
+            } catch (dbError) {
+                console.error("Firestore initialization failed:", dbError);
+                alert("Firebase Firestore initialization failed. Save functionality may not be available.");
+            }
+        } catch (firebaseError) {
+            console.error("Firebase initialization failed:", firebaseError);
+            alert("Firebase initialization failed. Save functionality is not available.");
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('textGenForm');
+            const generateBtn = document.getElementById('generateBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const resultContainer = document.getElementById('resultContainer');
+            const generatedText = document.getElementById('generatedText');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            const copyBtn = document.getElementById('copyBtn');
+            const saveToFirebaseBtn = document.getElementById('saveToFirebaseBtn');
+
+            // Form submission
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const who = document.getElementById('who').value.trim();
+                const when = document.getElementById('when').value.trim();
+                const where = document.getElementById('where').value.trim();
+                const what = document.getElementById('what').value.trim();
+                const why = document.getElementById('why').value.trim();
+                const how = document.getElementById('how').value.trim();
+                const style = document.getElementById('style').value;
+                const length = document.getElementById('length').value;
+
+                if (!who || !when || !where || !what || !why || !how) {
+                    showError('Please fill in all story elements (Who, When, Where, What, Why, How).');
+                    return;
+                }
+
+                // Create a story prompt from the inputs
+                const prompt = `Create a ${style} story with the following elements:
+- Who: ${who}
+- When: ${when}
+- Where: ${where}
+- What: ${what}
+- Why: ${why}
+- How: ${how}
+
+Write a complete story that incorporates all these elements in a creative and engaging way.`;
+
+                // Show loading state
+                generateBtn.disabled = true;
+                loadingSpinner.style.display = 'block';
+                resultContainer.style.display = 'none';
+                hideMessages();
+
+                try {
+                    const response = await fetch('/api/generate-text', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            prompt: prompt,
+                            style: style,
+                            length: length,
+                            additionalContext: `Story elements: Who=${who}, When=${when}, Where=${where}, What=${what}, Why=${why}, How=${how}`
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        generatedText.textContent = data.text;
+                        resultContainer.style.display = 'block';
+                        showSuccess('Story generated successfully!');
+                    } else {
+                        showError(data.error || 'Failed to generate story. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showError('Network error. Please check your connection and try again.');
+                } finally {
+                    generateBtn.disabled = false;
+                    loadingSpinner.style.display = 'none';
+                }
+            });
+
+            // Clear form
+            clearBtn.addEventListener('click', function () {
+                form.reset();
+                resultContainer.style.display = 'none';
+                hideMessages();
+            });
+
+            // Copy to clipboard
+            copyBtn.addEventListener('click', function () {
+                const text = generatedText.textContent;
+                navigator.clipboard.writeText(text).then(function () {
+                    const originalText = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = originalText;
+                    }, 2000);
+                }).catch(function (err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            });
+
+            // Save to Firebase
+            saveToFirebaseBtn.addEventListener('click', async function () {
+                if (!window.fbDb) {
+                    showError('Firebase is not initialized. Please refresh the page and try again.');
+                    return;
+                }
+
+                const storyText = generatedText.textContent;
+                if (!storyText) {
+                    showError('No story to save. Please generate a story first.');
+                    return;
+                }
+
+                // Get current user ID
+                const currentUserId = localStorage.getItem('currentUserId') || 'anonymous';
+
+                // Get story elements
+                const who = document.getElementById('who').value.trim();
+                const when = document.getElementById('when').value.trim();
+                const where = document.getElementById('where').value.trim();
+                const what = document.getElementById('what').value.trim();
+                const why = document.getElementById('why').value.trim();
+                const how = document.getElementById('how').value.trim();
+                const style = document.getElementById('style').value;
+                const length = document.getElementById('length').value;
+
+                // Show loading state
+                saveToFirebaseBtn.disabled = true;
+                saveToFirebaseBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+                try {
+                    // Import Firestore functions
+                    const { collection, addDoc } = await import("https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js");
+
+                    // Create story data
+                    const storyData = {
+                        userId: currentUserId,
+                        storyText: storyText,
+                        storyElements: {
+                            who: who,
+                            when: when,
+                            where: where,
+                            what: what,
+                            why: why,
+                            how: how
+                        },
+                        style: style,
+                        length: length,
+                        timestamp: new Date().toISOString(),
+                        type: 'ai_generated_story'
+                    };
+
+                    // Save to Firestore
+                    const docRef = await addDoc(collection(window.fbDb, 'stories'), storyData);
+                    console.log('Story saved with ID: ', docRef.id);
+
+                    showSuccess('Story saved to Firebase successfully!');
+
+                    // Reset button
+                    saveToFirebaseBtn.innerHTML = '<i class="fas fa-check"></i> Saved!';
+                    setTimeout(() => {
+                        saveToFirebaseBtn.innerHTML = '<i class="fas fa-save"></i> Save Story';
+                        saveToFirebaseBtn.disabled = false;
+                    }, 2000);
+
+                } catch (error) {
+                    console.error('Error saving story to Firebase:', error);
+                    showError('Failed to save story to Firebase. Please try again.');
+
+                    // Reset button
+                    saveToFirebaseBtn.innerHTML = '<i class="fas fa-save"></i> Save Story';
+                    saveToFirebaseBtn.disabled = false;
+                }
+            });
+
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+            }
+
+            function showSuccess(message) {
+                successMessage.textContent = message;
+                successMessage.style.display = 'block';
+                errorMessage.style.display = 'none';
+            }
+
+            function hideMessages() {
+                errorMessage.style.display = 'none';
+                successMessage.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AI workshop - AKA</title>
+    <meta name="description"
+        content="IW06: Storytelling is a 4-lesson AI workshop for students aged 8-9. Participants will learn to leverage generative AI tools for creative writing, and storytelling. Through hands-on exercises, students will unlock new realms of narrative possibility by generating original text, images, and audio to bring their stories to life. For those seeking deeper practice, a 12-hour IW06 Practicum is available to further enhance Gen-AI arts skills. This workshop offers a unique opportunity to explore the intersection of technology and imagination. Prepare for an extraordinary adventure in AI-powered storytelling.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #F5F7FA;
+            --text-color: #2C3E50;
+            --border-color: #E5E9F2;
+            --hover-color: #357ABD;
+        }
+
+        body {
+            color: var(--text-color);
+            background-color: #FFFFFF;
+            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* Custom navbar styling */
+        .navbar {
+            background-color: #FFFFFF !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            height: 80px;
+        }
+
+        .navbar-light .navbar-nav .nav-link {
+            color: #333333;
+        }
+
+        .navbar-light .navbar-nav .nav-link:hover {
+            color: #D87D3A;
+        }
+
+
+        .text-rotator {
+            position: relative;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .text-item {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .text-item.active {
+            opacity: 1;
+        }
+
+        .button-container {
+            display: flex !important;
+            flex-direction: row;
+            justify-content: center;
+            position: relative;
+            top: 300px;
+        }
+
+        .headline-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+
+        .btn {
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        h4.mb-3 {
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 2rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-1px);
+        }
+
+        .form-control {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+        }
+
+        .scrollable-textarea {
+            background-color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+        }
+
+
+        iframe {
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .headline-container img {
+            max-width: 100%;
+            height: auto;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .responsive-text {
+                font-size: 14px;
+                /* Adjust for small screens */
+            }
+
+            .button-container {
+                display: none;
+            }
+
+            .text-item h3 {
+                font-size: 16px;
+            }
+
+            .headline-container img {
+                width: 100%;
+                padding: 10%;
+            }
+        }
+
+        @media (min-width: 577px) and (max-width: 768px) {
+            .responsive-text {
+                font-size: 16px;
+                /* Adjust for medium screens */
+            }
+
+            .button-container {
+                display: none;
+            }
+
+            .text-item h3 {
+                font-size: 18px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 992px) {
+            .responsive-text {
+                font-size: 18px;
+                /* Adjust for large screens */
+            }
+
+            .button-container {
+                display: none;
+            }
+
+            .text-item h3 {
+                font-size: 20px;
+            }
+
+            .flu_logo {
+                position: absolute;
+                left: 10px;
+                top: 0px;
+            }
+
+            .school_logo {
+                display: none;
+                position: absolute;
+                left: 150px;
+                top: 12px;
+            }
+        }
+
+        @media (min-width: 993px) and (max-width: 1200px) {
+            .responsive-text {
+                font-size: 20px;
+                /* Adjust for extra large screens */
+            }
+
+            .button-container {
+                display: none;
+            }
+
+
+        }
+
+        @media (min-width: 1201px) and (max-width: 1400px) {
+            .responsive-text {
+                font-size: 22px;
+                /* Adjust for larger extra large screens */
+            }
+
+            .button-container {
+                display: none;
+            }
+        }
+
+        @media (min-width: 1401px) and (max-width: 1600px) {
+            .responsive-text {
+                font-size: 24px;
+                /* Adjust for even larger screens */
+            }
+
+        }
+
+        @media (min-width: 1601px) and (max-width: 18000px) {
+            .responsive-text {
+                font-size: 26px;
+                /* Adjust for very large screens up to 18,000 pixels */
+            }
+        }
+
+        .scrollable-textarea {
+            height: 200px;
+            /* Set a fixed height */
+            overflow-y: auto;
+            /* Enable vertical scrolling */
+        }
+
+        #sectionTitle {
+            transition: opacity 0.3s ease;
+            margin-left: 1rem;
+            font-weight: 500;
+        }
+
+
+        /* ... existing styles ... */
+
+        .section-box {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .section-box:hover {
+            box-shadow: 0 6px 28px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .section-box img.round {
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .section-box {
+            background-color: transparent;
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .section-box {
+                padding: 1rem;
+            }
+
+            .flu_logo {
+                position: absolute;
+                left: 10px;
+                top: 0px;
+            }
+
+            .school_logo {
+                position: absolute;
+                left: 150px;
+                top: 12px;
+            }
+        }
+
+        li.active {
+            font-weight: bold;
+        }
+
+        /* Add hover animation for the buttons */
+        .btn.rounded-pill:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: inherit !important;
+            /* Keep the original text color */
+        }
+
+        /* Ensure WhatsApp button text colors stay fixed */
+        .btn.btn-warning.rounded-pill {
+            color: white !important;
+        }
+
+        .btn.btn-warning.rounded-pill:hover {
+            color: white !important;
+        }
+
+        .btn.btn-info.rounded-pill {
+            color: white !important;
+        }
+
+        .btn.btn-info.rounded-pill:hover {
+            color: white !important;
+        }
+
+        .btn.btn-primary.rounded-pill {
+            color: white !important;
+        }
+
+        .btn.btn-primary.rounded-pill:hover {
+            color: white !important;
+        }
+
+        /* Prompt Card Styles */
+        .card.mb-3 {
+            transition: box-shadow 0.3s ease, transform 0.2s ease;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .card.mb-3:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            background-color: var(--secondary-color) !important;
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.75rem 1.25rem;
+        }
+
+        .prompt-card .card-header {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .action-buttons {
+            opacity: 1;
+        }
+
+        .card-body:hover .action-buttons {
+            opacity: 1;
+        }
+
+        .action-buttons .btn {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            border: none;
+        }
+
+        .action-buttons .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .action-buttons .btn i {
+            font-size: 0.8rem;
+        }
+
+        .copy-btn {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            border: 1px solid #dee2e6 !important;
+        }
+
+        .copy-btn:hover {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .edit-btn {
+            background-color: #f8f9fa;
+            color: #0d6efd;
+            border: 1px solid #dee2e6 !important;
+        }
+
+        .edit-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #f8f9fa;
+            color: #dc3545;
+            border: 1px solid #dee2e6 !important;
+        }
+
+        .delete-btn:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-primary {
+            background-color: #0d6efd;
+        }
+
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #bb2d3b;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-text {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: #445566;
+        }
+
+        .modern-title {
+            font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-5 fixed-top">
+        <div>
+            <a class="navbar-brand flu_logo" href="https://future-leaders-union.odoo.com/zh_TW" target="_blank">
+                <img class="mx-4" src="./images/FLU_logo2.png" width="100" class="d-inline-block align-top"
+                    style="margin-top:12px;">
+            </a>
+            <a class="navbar-brand school_logo" href="https://mcsps.edu.hk/" target="_blank">
+                <img class="d-none" src="https://mcsps.edu.hk/wp-content/uploads/2024/09/BADGEHI.png" height="90"
+                    class="d-inline-block align-top" style="padding:5px;" alt="" target="_blank"></a>
+        </div>
+
+        <span id="userIdDisplay" class="text-black me-3">User: <span id="userId"></span></span>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="justify-content-end collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mx-2">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item active" id="classPptLink">
+                    <a class="nav-link" href="classppt.html">Lessons</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../img-gen/img_gen.html">AI Art Studio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="text-gen.html">Text Generator</a>
+                </li>
+                <li class="nav-item d-none" id="teacherArea">
+                    <a class="nav-link" href="teacherdashboard.html">Gallery</a>
+                </li>
+
+
+                <button onclick="logout()" class="btn btn-secondary" id="logoutBtn">Logout</button>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+    <!-- Inline Slides Viewer at the Top -->
+    <div class="container my-4">
+        <div class="d-flex justify-content-center align-items-center position-relative" style="min-height: 100px;">
+            <button class="btn btn-dark position-absolute top-50 start-0 translate-middle-y" id="slidePrevBtn"
+                style="z-index: 1000;">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <img id="slideImage" class="img-fluid" src="images/slides/1.png" alt="Slide"
+                style="max-width: calc(100vw - 400px); width: auto; height: auto; padding-left: 200px; padding-right: 200px; max-height: 90vh;">
+            <button class="btn btn-dark position-absolute top-50 end-0 translate-middle-y" id="slideNextBtn"
+                style="z-index: 1000;">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        <div class="text-center mt-2">
+            <span id="slideCounter">1 / 26</span>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center position-relative" style="min-height: 100px;">
+        <a class="btn btn-primary mx-2" href="https://www.recraft.ai/" target="_blank"
+            rel="noopener noreferrer">Recraft</a>
+        <a class="btn btn-primary mx-2" href="https://nanobanana.ai/generator" target="_blank"
+            rel="noopener noreferrer">Nano Banana</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/e067495424.js" crossorigin="anonymous"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-storage.js";
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy, deleteDoc, doc, updateDoc, getDoc, serverTimestamp, where } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyADT4rh94tIthBV32YkFToUaX9preqWwE4",
+            authDomain: "link-aka-251025.firebaseapp.com",
+            projectId: "link-aka-251025",
+            storageBucket: "link-aka-251025.firebasestorage.app",
+            messagingSenderId: "431182649515",
+            appId: "1:431182649515:web:171eae8973d3c863607fee",
+            measurementId: "G-RMDK7NNMBQ"
+        };
+
+
+        // Initialize Firebase
+        let app, storage;
+        try {
+            app = initializeApp(firebaseConfig);
+            console.log("Firebase initialized successfully");
+
+            // Initialize Analytics
+            try {
+                const analytics = getAnalytics(app);
+                console.log("Firebase Analytics initialized");
+            } catch (analyticsError) {
+                console.warn("Analytics initialization failed:", analyticsError);
+            }
+
+            // Initialize Storage
+            try {
+                storage = getStorage(app);
+                console.log("Firebase Storage initialized successfully");
+
+                // Test storage access
+                const testRef = ref(storage, ".connection_test");
+                console.log("Storage reference created:", testRef);
+            } catch (storageError) {
+                console.error("Storage initialization failed:", storageError);
+                alert("Firebase存儲初始化失敗，上傳功能可能不可用");
+            }
+
+            // Initialize Firestore
+            try {
+                const db = getFirestore(app);
+                console.log("Firestore initialized successfully");
+                window.fbDB = db;
+            } catch (firestoreError) {
+                console.error("Firestore initialization failed:", firestoreError);
+                alert("Firestore初始化失敗，提交功能可能不可用");
+            }
+        } catch (firebaseError) {
+            console.error("Firebase initialization failed:", firebaseError);
+            alert("Firebase初始化失敗，上傳功能不可用");
+        }
+
+        // Make storage available globally
+        window.fbStorage = storage;
+
+        // Generate a random user ID if not already set
+        if (!localStorage.getItem('currentUserId')) {
+            const randomId = 'user_' + Math.random().toString(36).substring(2, 8);
+            localStorage.setItem('currentUserId', randomId);
+            console.log('Generated random user ID:', randomId);
+        }
+
+        // Function to get emoji for user ID
+        function getEmojiForUserId(userId) {
+            const kidFriendlyEmojis = [
+                '🌟', '🌈', '🦄', '🐱', '🐶', '🦁', '🐼', '🐨', '🦊', '🦋',
+                '🌸', '🌺', '🌻', '🌞', '⭐', '🌙', '☀️', '🌤️', '🌺', '🌷',
+                '🍀', '🌱', '🌳', '🌴', '🌵', '🌿', '🍄', '🌼', '🌻', '🌹',
+                '🎨', '🎭', '🎪', '🎯', '🎲'
+            ];
+            // Subtract 1 from userId since we want to start from 0
+            const index = (parseInt(userId) - 1) % kidFriendlyEmojis.length;
+            return kidFriendlyEmojis[index];
+        }
+
+        // Update user ID display in the navbar
+        const userIdDisplay = document.getElementById('userIdDisplay');
+        const currentUserId = localStorage.getItem('currentUserId');
+
+        if (userIdDisplay && currentUserId) {
+            userIdDisplay.textContent = `User ID: ${currentUserId} ${getEmojiForUserId(currentUserId)}`;
+            userIdDisplay.classList.remove('d-none');
+        }
+
+        const nameInput = document.getElementById('name_1');
+        if (nameInput) {
+            nameInput.value = currentUserId;
+        }
+
+        const items = document.querySelectorAll('.text-item');
+        const buttons = document.querySelectorAll('.btn');
+        let currentIndex = 0;
+        let rotationInterval; // Variable to hold the interval
+
+        function rotateText() {
+            items[currentIndex]?.classList.remove('active');
+            currentIndex = (currentIndex + 1) % items.length;
+            items[currentIndex]?.classList.add('active');
+        }
+
+        function showText(index) {
+            const newIndex = parseInt(index);
+            if (isNaN(newIndex) || newIndex < 0 || newIndex >= items.length) {
+                console.warn('Invalid index:', index);
+                return;
+            }
+
+            items[currentIndex]?.classList.remove('active');
+            currentIndex = newIndex;
+            items[currentIndex]?.classList.add('active');
+        }
+
+        function startRotation() {
+            rotationInterval = setInterval(rotateText, 5000); // Change text every 3 seconds
+        }
+
+        function stopRotation() {
+            clearInterval(rotationInterval); // Stop the rotation
+        }
+
+        // Start the rotation on page load
+        startRotation();
+
+        buttons.forEach(button => {
+            button.addEventListener('mouseover', () => {
+                stopRotation(); // Stop rotation on mouse over
+                showText(button.getAttribute('data-index'));
+            });
+            button.addEventListener('mouseleave', () => {
+                startRotation(); // Resume rotation on mouse leave
+            });
+        });
+
+        // Font size variable for the rich text editor
+        window.editorFontSize = 16; // Default font size (moved to global scope to avoid redeclaration)
+
+        // Form handling for Prompt submissions
+        const form1 = document.getElementById('dataForm_ws1');
+
+        form1.addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const textarea = form1.querySelector('textarea');
+            const label = form1.querySelector('label');
+            const promptText = textarea.value.trim();
+
+            if (!promptText) {
+                alert('請輸入Prompt內容再提交');
+                return;
+            }
+
+            const currentUserId = localStorage.getItem('currentUserId');
+            if (!currentUserId) {
+                alert('請先登入或設置用戶ID');
+                return;
+            }
+
+            try {
+                // Show loading state
+                const submitBtn = form1.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.textContent;
+                submitBtn.disabled = true;
+                submitBtn.textContent = '提交中...';
+
+                // Add document to Firestore
+                const promptsCollection = collection(window.fbDB, 'prompts');
+                const newPrompt = {
+                    text: promptText,
+                    userId: currentUserId,
+                    timestamp: serverTimestamp(),
+                    createdAt: new Date().toISOString() // Backup for sorting if serverTimestamp fails
+                };
+
+                await addDoc(promptsCollection, newPrompt);
+
+                // Clear the form and show success message
+                textarea.value = '';
+                label.textContent = '成功提交! 多謝您的提示。';
+
+                // Show alert to confirm submission
+                alert('提交成功！');
+
+                // Refresh the prompts display
+                loadPrompts();
+            } catch (error) {
+                console.error('Error submitting prompt:', error);
+                alert(`提交失敗: ${error.message}`);
+            } finally {
+                // Restore button state
+                const submitBtn = form1.querySelector('button[type="submit"]');
+                submitBtn.disabled = false;
+                submitBtn.textContent = '提交指示';
+            }
+        });
+
+        // In case dataForm_ws4 exists elsewhere in the document, keep a simplified version
+        const form2 = document.getElementById('dataForm_ws4');
+        if (form2) {
+            form2.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const input = form2.querySelector('input[type="url"]');
+                const label = form2.querySelector('label');
+
+                if (input) {
+                    input.value = '';
+                    if (label) label.textContent = '成功提交!';
+                    alert('提交成功！');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const nameInput = document.getElementById('name');
+            const currentUserId = localStorage.getItem('currentUserId');
+            nameInput.value = currentUserId;
+
+            // Add keyboard event listeners
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'ArrowRight' && e.shiftKey) {
+                    nameInput.classList.remove('d-none');
+                }
+            });
+
+            document.addEventListener('keyup', function (e) {
+                if (e.key === 'ArrowRight' && e.shiftKey) {
+                    nameInput.classList.add('d-none');
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const imageUpload = document.getElementById('imageUpload');
+            const imagePreview = document.getElementById('imagePreview');
+            const uploadButton = document.getElementById('uploadButton');
+            const imageName = document.getElementById('imageName');
+            const uploadStatus = document.getElementById('uploadStatus');
+            const uploadStatusMessage = document.getElementById('uploadStatusMessage');
+            const uploadProgress = document.getElementById('uploadProgress');
+            const displayUserId = document.getElementById('displayUserId');
+            const changeUserIdBtn = document.getElementById('changeUserIdBtn');
+            const testConnectionBtn = document.getElementById('testConnectionBtn');
+
+            // Initialize prompts display
+            loadPrompts();
+
+            // Handle prompt edit modal
+            const savePromptEditBtn = document.getElementById('savePromptEdit');
+            if (savePromptEditBtn) {
+                savePromptEditBtn.addEventListener('click', updatePrompt);
+            }
+
+            // Set up refresh button
+            const refreshBtn = document.getElementById('refreshPrompts');
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', () => {
+                    refreshBtn.disabled = true;
+                    const icon = refreshBtn.querySelector('i');
+                    icon.classList.add('fa-spin');
+                    loadPrompts().finally(() => {
+                        setTimeout(() => {
+                            refreshBtn.disabled = false;
+                            icon.classList.remove('fa-spin');
+                        }, 500);
+                    });
+                });
+            }
+
+            // Set up sort buttons
+            const sortNewestBtn = document.getElementById('sortNewest');
+            const sortOldestBtn = document.getElementById('sortOldest');
+
+            if (sortNewestBtn) {
+                sortNewestBtn.addEventListener('click', () => {
+                    loadPrompts('desc');
+                });
+            }
+
+            if (sortOldestBtn) {
+                sortOldestBtn.addEventListener('click', () => {
+                    loadPrompts('asc');
+                });
+            }
+
+            // Function to test Firebase connectivity
+            async function testFirebaseConnection() {
+                if (!window.fbStorage) {
+                    alert('Firebase 儲存還未初始化');
+                    return false;
+                }
+
+                try {
+                    const testRef = ref(window.fbStorage, `.connection_test_${Date.now()}`);
+                    const testBlob = new Blob(['connection_test'], { type: 'text/plain' });
+
+                    // Try to upload a small test file
+                    await uploadBytes(testRef, testBlob);
+
+                    // Try to get the download URL
+                    const downloadURL = await getDownloadURL(testRef);
+
+                    console.log('Firebase connection test successful:', downloadURL);
+                    alert('Firebase 連接測試成功！上傳功能已正常運作。');
+                    return true;
+                } catch (error) {
+                    console.error('Firebase connection test failed:', error);
+
+                    // Check if it's a permission error
+                    if (error.code === 'storage/unauthorized') {
+                        alert('Firebase 連接正常，但權限受限。請聯絡管理員獲取上傳權限。');
+                        return true; // Connection works, just permissions issue
+                    } else {
+                        alert(`Firebase 連接測試失敗: ${error.message}`);
+                        return false;
+                    }
+                }
+            }
+
+            // Add event listener for test connection button
+            testConnectionBtn.addEventListener('click', function () {
+                testFirebaseConnection();
+            });
+
+            // Update user ID display
+            function updateUserIdDisplay() {
+                const currentUserId = localStorage.getItem('currentUserId') || '未設置';
+                displayUserId.textContent = currentUserId;
+            }
+
+            // Initialize user ID display
+            updateUserIdDisplay();
+
+            // Handle user ID change button
+            changeUserIdBtn.addEventListener('click', function () {
+                const currentUserId = localStorage.getItem('currentUserId') || '';
+                const newUserId = prompt('請輸入新的用戶ID:', currentUserId);
+                if (newUserId && newUserId.trim() !== '') {
+                    localStorage.setItem('currentUserId', newUserId.trim());
+                    updateUserIdDisplay();
+                    alert('用戶ID已更新!');
+                }
+            });
+
+            // Preview images
+            imageUpload.addEventListener('change', function (e) {
+                imagePreview.innerHTML = ''; // Clear existing previews
+
+                [...e.target.files].forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const preview = document.createElement('div');
+                        preview.className = 'position-relative';
+                        preview.innerHTML = `
+                                                        <img src="${e.target.result}" style="max-width: 200px; max-height: 200px; object-fit: contain;">
+                                                `;
+                        imagePreview.appendChild(preview);
+                    }
+                    reader.readAsDataURL(file);
+                });
+            });
+
+            // Handle upload
+            uploadButton.addEventListener('click', async function () {
+                const files = imageUpload.files;
+                const currentUserId = localStorage.getItem('currentUserId');
+
+                // Check for user ID
+                if (!currentUserId) {
+                    // Prompt the user to enter a user ID if not already set
+                    const userId = prompt('請輸入您的用戶ID:');
+                    if (!userId) {
+                        alert('需要用戶ID才能上傳圖片');
+                        return;
+                    }
+                    localStorage.setItem('currentUserId', userId);
+                }
+
+                if (!files.length || !imageName.value) {
+                    alert('請選擇圖片並入名稱');
+                    return;
+                }
+
+                try {
+                    uploadButton.disabled = true;
+                    uploadButton.textContent = '上傳中...';
+                    uploadStatus.classList.remove('d-none');
+                    uploadStatusMessage.textContent = '準備上傳...';
+
+                    // Reset progress bar
+                    uploadProgress.style.width = '0%';
+                    uploadProgress.textContent = '0%';
+
+                    // Test Firebase connection first
+                    uploadStatusMessage.textContent = '檢查 Firebase 連接...';
+                    try {
+                        const testRef = ref(window.fbStorage, `.connection_test_${Date.now()}`);
+                        const testBlob = new Blob(['connection_test'], { type: 'text/plain' });
+                        await uploadBytes(testRef, testBlob);
+                        uploadStatusMessage.textContent = 'Firebase 連接成功，開始上傳...';
+                    } catch (connectionError) {
+                        // Check if it's a permission error
+                        if (connectionError.code === 'storage/unauthorized') {
+                            console.log('Firebase connection works but lacks permissions');
+                            uploadStatusMessage.textContent = 'Firebase 連接正常，但權限受限。繼續嘗試上傳...';
+                            // Continue with upload attempt anyway
+                        } else {
+                            throw new Error(`Firebase 連接失敗: ${connectionError.message}`);
+                        }
+                    }
+
+                    let successCount = 0;
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        const timestamp = Date.now();
+                        const fileName = `${currentUserId}_${imageName.value}_${timestamp}_${i}`;
+                        const storageRef = ref(window.fbStorage, `stories/${fileName}`);
+
+                        // Update progress status
+                        const progressPercent = Math.round((i / files.length) * 100);
+                        uploadProgress.style.width = `${progressPercent}%`;
+                        uploadProgress.textContent = `${progressPercent}%`;
+                        uploadStatusMessage.textContent = `正在上傳文件 ${i + 1}/${files.length}: ${file.name}`;
+
+                        try {
+                            await uploadBytes(storageRef, file);
+                            const downloadURL = await getDownloadURL(storageRef);
+                            console.log('File uploaded:', downloadURL);
+                            successCount++;
+                        } catch (fileError) {
+                            console.error(`Error uploading ${file.name}:`, fileError);
+
+                            // Check if it's a permission error
+                            if (fileError.code === 'storage/unauthorized') {
+                                uploadStatusMessage.textContent = `上傳 ${file.name} 失敗: 權限不足，請聯絡管理員`;
+                            } else {
+                                uploadStatusMessage.textContent = `上傳 ${file.name} 失敗: ${fileError.message}`;
+                            }
+                        }
+                    }
+
+                    // Set progress to 100%
+                    uploadProgress.style.width = '100%';
+                    uploadProgress.textContent = '100%';
+
+                    if (successCount === files.length) {
+                        uploadStatusMessage.textContent = `全部 ${files.length} 個文件上傳成功！`;
+                        alert('圖片上傳成功！');
+                    } else {
+                        uploadStatusMessage.textContent = `成功上傳 ${successCount}/${files.length} 個文件。`;
+                        alert(`部分上傳成功：${successCount}/${files.length} 個文件`);
+                    }
+
+                    imageUpload.value = '';
+                    imageName.value = '';
+                    imagePreview.innerHTML = '';
+
+                } catch (error) {
+                    console.error('Upload error:', error);
+                    uploadStatusMessage.textContent = `上傳錯誤: ${error.message}`;
+                    alert(`上傳失敗，請重試: ${error.message}`);
+                } finally {
+                    uploadButton.disabled = false;
+                    uploadButton.textContent = '上傳圖片';
+                    setTimeout(() => {
+                        uploadStatus.classList.add('d-none'); // Hide status after a delay
+                    }, 5000);
+                }
+            });
+        });
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const sectionTitle = document.getElementById('sectionTitle');
+            const sections = document.querySelectorAll('.row.flex-grow-2.mt-5.fade-in');
+
+            window.addEventListener('scroll', function () {
+                // Find which section is currently in view
+                let currentSection = null;
+                let smallestDistance = Infinity;
+
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    // Calculate distance from top of viewport
+                    const distance = Math.abs(rect.top);
+
+                    // Find the section closest to the top of the viewport
+                    if (distance < smallestDistance) {
+                        smallestDistance = distance;
+                        currentSection = section;
+                    }
+                });
+
+                // Update section title if we found a section
+                if (currentSection) {
+                    const sectionHeader = currentSection.querySelector('h4.mb-3');
+                    // Show section title when any section is above the viewport
+                    if (currentSection.getBoundingClientRect().top < 0) {
+                        sectionTitle.textContent = sectionHeader.textContent;
+                        sectionTitle.classList.remove('d-none');
+                    } else {
+                        sectionTitle.classList.add('d-none');
+                    }
+                }
+            });
+        });
+
+        // Make openModal available globally
+        window.openModal = function (presentationId) {
+            const modal = new bootstrap.Modal(document.getElementById('presentationModal'));
+            const container = document.getElementById('modalIframeContainer');
+
+            // Define the iframe sources
+            const presentations = {
+                'presentation2': "https://docs.google.com/presentation/d/e/2PACX-1vR0N5eLd3d65nUFnFNtZp2HMlcOj0VPHmjnM4Jjq7u7SpTj1I-F0nrx1Np2Kiw1nQIu1-q6sJRv5R-S/pubembed?start=false&loop=false&delayms=3000"
+            };
+
+            // Create and insert the iframe
+            container.innerHTML = `<iframe src="${presentations[presentationId]}" 
+                                frameborder="0" 
+                                width="100%" 
+                                height="100%" 
+                                allowfullscreen="true" 
+                                mozallowfullscreen="true" 
+                                webkitallowfullscreen="true">
+                        </iframe>`;
+
+            modal.show();
+        };
+
+        // Testing code for debugging purposes
+        console.log("Script initialized");
+
+    </script>
+    <script>
+        // Use the global font size variable declared above
+        function changeFontSize(change) {
+            window.editorFontSize += change; // Adjust the font size using the global variable
+            document.getElementById('richTextInput').style.fontSize = window.editorFontSize + 'px';
+        }
+    </script>
+    <script>
+        // Add all the prompt handling functions to the global window object
+
+        // Load prompts from Firestore and display them
+        async function loadPrompts(sortDirection = 'desc') {
+            const promptLogbook = document.getElementById('promptLogbook');
+            const loadingPrompts = document.getElementById('loadingPrompts');
+
+            if (!promptLogbook || !window.fbDB) return;
+
+            try {
+                // Show loading indicator
+                if (loadingPrompts) {
+                    loadingPrompts.style.display = 'block';
+                }
+
+                // Clear existing content except loading indicator
+                Array.from(promptLogbook.children).forEach(child => {
+                    if (child.id !== 'loadingPrompts') {
+                        promptLogbook.removeChild(child);
+                    }
+                });
+
+                // Get current user ID for permission checks
+                const currentUserId = localStorage.getItem('currentUserId') || '';
+                const isAdmin = currentUserId === 'M514';
+
+                // Import required functions from Firebase
+                const { collection, query, orderBy, getDocs, doc, deleteDoc, updateDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js");
+
+                // Query prompts, ordered by timestamp
+                const promptsCollection = collection(window.fbDB, 'prompts');
+                const q = query(promptsCollection, orderBy('createdAt', sortDirection));
+                const querySnapshot = await getDocs(q);
+
+                // Hide loading indicator if no prompts found
+                if (querySnapshot.empty && loadingPrompts) {
+                    loadingPrompts.style.display = 'none';
+
+                    // Show "no prompts" message
+                    const noPromptsMsg = document.createElement('div');
+                    noPromptsMsg.className = 'alert alert-secondary text-center';
+                    noPromptsMsg.textContent = '尚未有人提交Prompt';
+                    promptLogbook.appendChild(noPromptsMsg);
+                    return;
+                }
+
+                // Process each prompt document
+                querySnapshot.forEach(doc => {
+                    const promptData = doc.data();
+                    const promptId = doc.id;
+                    const canEdit = isAdmin || promptData.userId === currentUserId;
+
+                    // Format timestamp
+                    let timestampStr = '剛剛';
+                    if (promptData.timestamp) {
+                        const timestamp = promptData.timestamp.toDate();
+                        timestampStr = new Intl.DateTimeFormat('zh-HK', {
+                            year: 'numeric',
+                            month: 'numeric',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        }).format(timestamp);
+                    }
+
+                    // Create prompt card
+                    const promptCard = document.createElement('div');
+                    promptCard.className = 'card mb-3 prompt-card';
+                    promptCard.innerHTML = `
+                                <div class="card-header d-flex justify-content-between align-items-center bg-light">
+                                    <span class="fw-semibold"><i class="fas fa-user-circle me-2"></i>${promptData.userId || '匿名'}</span>
+                                    <small class="text-muted"><i class="far fa-clock me-1"></i>${timestampStr}</small>
+                                </div>
+                                <div class="card-body position-relative">
+                                    <div class="action-buttons position-absolute top-0 end-0 mt-2 me-2 d-flex gap-1">
+                                        <button class="btn btn-sm btn-light rounded-circle copy-btn" 
+                                                data-prompt="${escape(promptData.text)}" 
+                                                data-bs-toggle="tooltip" data-bs-placement="top" title="複製">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                        ${canEdit ? `
+                                        <button class="btn btn-sm btn-light rounded-circle edit-btn" 
+                                                data-id="${promptId}" 
+                                                data-bs-toggle="tooltip" data-bs-placement="top" title="編輯">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-light rounded-circle delete-btn" 
+                                                data-id="${promptId}"
+                                                data-bs-toggle="tooltip" data-bs-placement="top" title="刪除">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        ` : ''}
+                                    </div>
+                                    <p class="card-text pe-5">${promptData.text.replace(/\n/g, '<br>')}</p>
+                                </div>
+                            `;
+
+                    // Add event listeners
+                    promptLogbook.appendChild(promptCard);
+
+                    // Initialize tooltips
+                    const tooltipTriggerList = promptCard.querySelectorAll('[data-bs-toggle="tooltip"]');
+                    tooltipTriggerList.forEach(tooltipTriggerEl => {
+                        new bootstrap.Tooltip(tooltipTriggerEl, {
+                            trigger: 'hover'
+                        });
+                    });
+
+                    // Copy button
+                    const copyBtn = promptCard.querySelector('.copy-btn');
+                    if (copyBtn) {
+                        copyBtn.addEventListener('click', function () {
+                            const promptText = unescape(this.getAttribute('data-prompt'));
+                            copyToClipboard(promptText);
+                        });
+                    }
+
+                    // Edit button
+                    const editBtn = promptCard.querySelector('.edit-btn');
+                    if (editBtn) {
+                        editBtn.addEventListener('click', function () {
+                            const promptId = this.getAttribute('data-id');
+                            openEditModal(promptId, promptData.text);
+                        });
+                    }
+
+                    // Delete button
+                    const deleteBtn = promptCard.querySelector('.delete-btn');
+                    if (deleteBtn) {
+                        deleteBtn.addEventListener('click', function () {
+                            const promptId = this.getAttribute('data-id');
+                            deletePrompt(promptId);
+                        });
+                    }
+                });
+
+                // Hide loading indicator
+                if (loadingPrompts) {
+                    loadingPrompts.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error loading prompts:', error);
+                if (loadingPrompts) {
+                    loadingPrompts.style.display = 'none';
+                }
+
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'alert alert-danger';
+                errorMsg.textContent = `載入Prompt失敗: ${error.message}`;
+                promptLogbook.appendChild(errorMsg);
+            }
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>
