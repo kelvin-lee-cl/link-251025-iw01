@@ -42,6 +42,8 @@ A comprehensive web application that combines AI-powered image generation and st
 
 ## 📦 Installation
 
+### Local Development
+
 1. **Clone the repository**
    ```bash
    git clone git@github.com:kelvin-lee-cl/link-251025-iw01.git
@@ -54,9 +56,12 @@ A comprehensive web application that combines AI-powered image generation and st
    ```
 
 3. **Configure environment variables**
-   - Set up your Recraft AI API key
-   - Set up your DeepSeek API key
-   - Configure Firebase credentials
+   - Copy `env.template` to `.env`
+   - Fill in your API keys and Firebase credentials
+   ```bash
+   cp env.template .env
+   # Edit .env with your actual values
+   ```
 
 4. **Start the server**
    ```bash
@@ -65,6 +70,38 @@ A comprehensive web application that combines AI-powered image generation and st
 
 5. **Access the application**
    - Open `http://localhost:3000` in your browser
+
+### 🚀 Render.com Deployment
+
+1. **Fork the repository** to your GitHub account
+
+2. **Create a Render account** at [render.com](https://render.com)
+
+3. **Create a new Web Service**:
+   - Connect your GitHub repository
+   - Use the following settings:
+     - **Build Command**: `npm install`
+     - **Start Command**: `npm start`
+     - **Environment**: `Node`
+
+4. **Configure Environment Variables** in Render dashboard:
+   ```
+   NODE_ENV=production
+   PORT=3000
+   DEEPSEEK_API_KEY=your_deepseek_api_key
+   RECRAFT_API_KEY=your_recraft_api_key
+   FIREBASE_API_KEY=your_firebase_api_key
+   FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+   FIREBASE_PROJECT_ID=your_project_id
+   FIREBASE_STORAGE_BUCKET=your_project.firebasestorage.app
+   FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+   FIREBASE_APP_ID=your_app_id
+   FIREBASE_MEASUREMENT_ID=your_measurement_id
+   ```
+
+5. **Deploy**: Render will automatically build and deploy your application
+
+6. **Access your live application** at the provided Render URL
 
 ## 🔧 Configuration
 

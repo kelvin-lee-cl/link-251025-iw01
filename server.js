@@ -5,16 +5,17 @@ const multer = require('multer');
 const FormData = require('form-data');
 const { initializeApp } = require('firebase/app');
 const { getStorage, ref, uploadBytes, getDownloadURL } = require('firebase/storage');
+require('dotenv').config();
 
-// Firebase configuration
+// Firebase configuration from environment variables
 const firebaseConfig = {
-    apiKey: "AIzaSyADT4rh94tIthBV32YkFToUaX9preqWwE4",
-    authDomain: "link-aka-251025.firebaseapp.com",
-    projectId: "link-aka-251025",
-    storageBucket: "link-aka-251025.firebasestorage.app",
-    messagingSenderId: "431182649515",
-    appId: "1:431182649515:web:171eae8973d3c863607fee",
-    measurementId: "G-RMDK7NNMBQ"
+    apiKey: process.env.FIREBASE_API_KEY || "AIzaSyADT4rh94tIthBV32YkFToUaX9preqWwE4",
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN || "link-aka-251025.firebaseapp.com",
+    projectId: process.env.FIREBASE_PROJECT_ID || "link-aka-251025",
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET || "link-aka-251025.firebasestorage.app",
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || "431182649515",
+    appId: process.env.FIREBASE_APP_ID || "1:431182649515:web:171eae8973d3c863607fee",
+    measurementId: process.env.FIREBASE_MEASUREMENT_ID || "G-RMDK7NNMBQ"
 };
 
 // Initialize Firebase
